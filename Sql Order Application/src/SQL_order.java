@@ -12,7 +12,7 @@ public class SQL_order{
 	String conString = "jdbc:sqlserver://localhost;database=Northwind;user=pyuser;password=pypass;encrypt=false;";
 	
 	//Declaring the statement variable. this will is the variable that passes commands to the SQL server and gets the results
-	Statement stmt = null;
+	Statement stmt;
 	
 	//Initialization function that gets the sqlServer JDBC driver class
 	public SQL_order() 
@@ -62,4 +62,6 @@ public class SQL_order{
         }
 
     }
+	
+	
 }
