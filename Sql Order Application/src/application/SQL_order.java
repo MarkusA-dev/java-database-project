@@ -1,6 +1,9 @@
+package application;
 
 //Import required module for sql connection
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 //Declaring the class i will be using for connecting and handling the SQL requests
 public class SQL_order{
@@ -62,6 +65,20 @@ public class SQL_order{
         }
 
     }
+	
+	public List<String> stmtToString() throws SQLException
+	{
+		List<String> resultStr = new ArrayList();
+		stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM [java database view]");
+		while(rs.next()) 
+		{
+			String stmtString = rs.getInt(1) + " [" + rs.getString(2) + "] [" + rs.getString(3) + "] [" + rs.getFloat(4) + "€] [" + rs.getDate(5) + "]";
+			resultStr.add(stmtString);
+		}
+		return resultStr;
+	}
+	
 	
 	
 }
