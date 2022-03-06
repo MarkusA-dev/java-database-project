@@ -1,0 +1,4 @@
+CREATE VIEW [java database view] AS SELECT o.OrderID, p.ProductName, c.ContactName, od.Quantity * od.UnitPrice AS cost, o.OrderDate FROM Orders o, Products p, [Order Details] od, Customers c
+WHERE o.OrderID=od.OrderID
+AND od.ProductID=p.ProductID
+AND o.CustomerID=c.CustomerID

@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class MainGui {
 
@@ -81,11 +83,12 @@ public class MainGui {
 		
 		panel_1.add(conBtn);
 		
-		JButton searchBtn = new JButton("Search");
-		searchBtn.setEnabled(false);
-		panel_1.add(searchBtn);
-		
 		textField = new JTextField();
+		textField.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				System.out.println(list.getModel());
+			}
+		});
 		textField.setEnabled(false);
 		panel_1.add(textField);
 		textField.setColumns(20);
@@ -110,7 +113,6 @@ public class MainGui {
 				}
 				System.out.println(list.getModel().getSize());;
 				list.setEnabled(true);
-				searchBtn.setEnabled(true);
 				textField.setEnabled(true);
 			}
 		});
