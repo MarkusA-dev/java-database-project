@@ -67,7 +67,7 @@ public class SQL_order{
     }
 	
 	//Method that returns a list of all rows in the database, which for this is about 2000
-	public List<String> stmtToString() throws SQLException
+	public List<String> stmtToString(String search) throws SQLException
 	{
 		//Declare list to be used for results
 		List<String> resultStr = new ArrayList<String>();
@@ -75,14 +75,16 @@ public class SQL_order{
 		//Make the stmt variable have the value of being an SQL statement
 		stmt = conn.createStatement();
 		
+		String query = "SELECT * FROM [java database view] WHERE orderID LIKE '%" + search + "%' OR ProductName LIKE '%" + search + "%' OR ContactName LIKE '%" + search + "%'";
+		
 		//Create a resultset that will store the query results. using the query that selects everything from the created view
-		ResultSet rs = stmt.executeQuery("SELECT * FROM [java database view]");
+		ResultSet rs = stmt.executeQuery(query);
 		
 		//Loop for each row in the resultset
 		while(rs.next()) 
 		{
 			//Creates a String with the data from the resultset that will be put into the list created earlier
-			String stmtString = rs.getInt(1) + " [" + rs.getString(2) + "] [" + rs.getString(3) + "] [" + rs.getFloat(4) + "€] [" + rs.getDate(5) + "]";
+			String stmtString = rs.getInt(1) + " [" + rs.getString(2) + "] [" + rs.getString(3) + "] [" + rs.getFloat(4) + "] [" + rs.getDate(5) + "]";
 			
 			//Add the now created string into the list of all items
 			resultStr.add(stmtString);
