@@ -2,29 +2,21 @@ package application;
 
 import java.awt.EventQueue;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import java.awt.Window.Type;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MainGui {
 
@@ -71,6 +63,14 @@ public class MainGui {
 		
 		SQL_order orders = new SQL_order();
 		
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				orders.CloseConnection();
+			}
+		});
+		
+		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 11, 564, 192);
 		frame.getContentPane().add(panel);
@@ -80,9 +80,7 @@ public class MainGui {
 		panel_1.setBounds(10, 214, 564, 36);
 		frame.getContentPane().add(panel_1);
 		
-		DefaultListModel<String> listmodel = new DefaultListModel();
-		
-		
+		DefaultListModel<String> listmodel = new DefaultListModel<String>();
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 544, 170);
@@ -96,10 +94,6 @@ public class MainGui {
 		JButton conBtn = new JButton("Connect");
 		
 		panel_1.add(conBtn);
-		
-		JButton searchbtn = new JButton("Search");
-		
-		panel_1.add(searchbtn);
 		
 		textField = new JTextField();
 		textField.addKeyListener(new KeyAdapter() {
@@ -121,15 +115,6 @@ public class MainGui {
 		textField.setEnabled(false);
 		panel_1.add(textField);
 		textField.setColumns(20);
-		
-		
-		
-		searchbtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String search = textField.getText();
-				System.out.println(search);
-			}
-		});
 		
 		conBtn.addActionListener(new ActionListener() {
 			//@SuppressWarnings("unchecked")

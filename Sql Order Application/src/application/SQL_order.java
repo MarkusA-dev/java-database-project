@@ -38,6 +38,17 @@ public class SQL_order{
 			 	//Giving the previously created conn variable of the connection. the DriverManager.getConnection takes in the connection string and uses it to connect to the database
 	            conn = DriverManager.getConnection(conString);
 	            
+	            stmt = conn.createStatement();
+	            
+	            String query = "IF NOT EXISTS(SELECT 1 FROM sys.views WHERE Name = 'java database view')\r\n"
+	    				+ "BEGIN\r\n"
+	    				+ "	EXEC('CREATE VIEW [java database view] AS SELECT o.OrderID, p.ProductName, c.ContactName, od.Quantity * od.UnitPrice AS cost, o.OrderDate FROM Orders o, Products p, [Order Details] od, Customers c\r\n"
+	    				+ "	WHERE o.OrderID=od.OrderID\r\n"
+	    				+ "	AND od.ProductID=p.ProductID\r\n"
+	    				+ "	AND o.CustomerID=c.CustomerID')\r\n"
+	    				+ "END";
+	    		
+	    		stmt.executeQuery(query);
 	            //After connecting print into the console to confirm that the connection was successful
 	            System.out.println("Successfully Connected");
 	        }
@@ -53,6 +64,9 @@ public class SQL_order{
 		//Again surrounded by try catch statement for exception handling
 		try
         {
+			stmt = conn.createStatement();
+			stmt.executeQuery("DROP VIEW [java database view]");
+			
 			//Passing the command to the conn variable to close the connection to the server
             this.conn.close();
             
@@ -75,7 +89,8 @@ public class SQL_order{
 		//Make the stmt variable have the value of being an SQL statement
 		stmt = conn.createStatement();
 		
-		String query = "SELECT * FROM [java database view] WHERE orderID LIKE '%" + search + "%' OR ProductName LIKE '%" + search + "%' OR ContactName LIKE '%" + search + "%'";
+		
+		String query = "SELECT * FROM [java database view] WHERE orderID LIKE '" + search + "%' OR ProductName LIKE '" + search + "%' OR ContactName LIKE '" + search + "%'";
 		
 		//Create a resultset that will store the query results. using the query that selects everything from the created view
 		ResultSet rs = stmt.executeQuery(query);
