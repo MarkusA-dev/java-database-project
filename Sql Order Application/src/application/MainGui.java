@@ -17,10 +17,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Color;
 
 public class MainGui {
 
-	private JFrame frame;
+	private JFrame frmOrderSearch;
 	private JTextField textField;
 	
 	
@@ -32,7 +33,7 @@ public class MainGui {
 			public void run() {
 				try {
 					MainGui window = new MainGui();
-					window.frame.setVisible(true);
+					window.frmOrderSearch.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,15 +56,18 @@ public class MainGui {
 	 * 
 	 */
 	private void initialize() throws SQLException {
-		frame = new JFrame();
-		frame.setAlwaysOnTop(true);
-		frame.setBounds(100, 100, 601, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmOrderSearch = new JFrame();
+		frmOrderSearch.getContentPane().setBackground(Color.LIGHT_GRAY);
+		frmOrderSearch.setBackground(Color.LIGHT_GRAY);
+		frmOrderSearch.setTitle("Order search");
+		frmOrderSearch.setAlwaysOnTop(true);
+		frmOrderSearch.setBounds(100, 100, 601, 300);
+		frmOrderSearch.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmOrderSearch.getContentPane().setLayout(null);
 		
 		SQL_order orders = new SQL_order();
 		
-		frame.addWindowListener(new WindowAdapter() {
+		frmOrderSearch.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				orders.CloseConnection();
@@ -72,13 +76,15 @@ public class MainGui {
 		
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
 		panel.setBounds(10, 11, 564, 192);
-		frame.getContentPane().add(panel);
+		frmOrderSearch.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.LIGHT_GRAY);
 		panel_1.setBounds(10, 214, 564, 36);
-		frame.getContentPane().add(panel_1);
+		frmOrderSearch.getContentPane().add(panel_1);
 		
 		DefaultListModel<String> listmodel = new DefaultListModel<String>();
 		
